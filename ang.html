@@ -1,0 +1,114 @@
+<html ng-app="app" >
+<head>
+<title>AngularJS Project</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="assign.js"></script>
+<style>
+table, th , td  {
+	margin: auto;
+	text-align: center;
+	width: 400px;
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+body {
+	width:800px;
+	margin: auto;
+}
+.y1{
+	text-align: center;
+}
+.y2{
+	margin-left: 130px;
+}
+.y5{
+	width: 100px;
+	margin-left: 350px;
+	margin-bottom: 20px;
+}
+.s1{
+	margin-left: 200px;
+}
+.arrow-up {
+     width: 0;
+     height: 0;
+     border-left: 5px solid transparent;
+     border-right: 5px solid transparent;
+     border-bottom: 10px solid black;
+     display:inline-block;
+}
+.arrow-down {
+     width: 0;
+     height: 0;
+     border-left: 5px solid transparent;
+     border-right: 5px solid transparent;
+     border-top: 10px solid black;
+     display:inline-block;
+}
+.pagi
+{
+	text-align: center;
+	height: 50px;
+}
+</style>
+</head>
+<body>
+<div class="ta" ng-controller="myCtrl">
+<h3 class="y1">FBI</h3>
+       <label class="y2">Year</label>
+       <select ng-model="year">
+       <option ng-repeat="x in data">{{x.year}}</option>
+       </select>
+       
+       <label class="y3">Theft you need</label>
+       <select ng-model="theft">
+       <option>Over $500</option>
+       <option>Under $500</option>
+       </select>
+
+       Value :<input class="y4" ng-model="query" type="text" />
+<br><br>
+
+<button class="y5" ng-click="update()">SEARCH</button>
+<br><br>
+
+       <table>
+        <thead>
+                <tr>
+                    <th ng-click="sortData('year')"><a href="">
+                        Year</a><div ng-class="getSortClass('year')"></div>
+                    </th>
+                    <th ng-click="sortData('under500')"><a href="">
+                       Under 500 </a><div ng-class="getSortClass('under500')"></div>
+                    </th>
+                    <th ng-click="sortData('above500')"><a href="">
+                  Over 500 </a><div ng-class="getSortClass('above500')"></div>
+                    </th>
+                </tr>
+            </thead>
+           <tr ng-repeat="x in data | filter:year | filter:query | datafilter:s:e | orderBy:sortColumn:reverseSort">
+              <td>{{x.year}}</td>            
+              <td>{{x.under500}}</td>
+              <td>{{x.above500}}</td>
+              <td>
+              	<button>EDIT!</button>
+              	<button>DELETE!</button>
+              </td>
+           </tr>
+     </table>
+
+<div class="pagi"> 
+<span ng-repeat="page in pagination" ><button ng-model="page" ng-click="select(page)">{{page}}</button></span>
+</div>
+       
+
+</div>
+</body>
+</html>
